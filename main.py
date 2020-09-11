@@ -1,12 +1,12 @@
+# PyQT 5.0 버전과, 아나콘다 Python 3.6 버전을 사용했습니다.
+# PyCharm을 사용하는 경우 File->Settings->Project Interpreter 를 아나콘다 Python 3.6으로 설정해줘야 코드가 올바르게 동작합니다.
+
 import sys
 import random
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-
-# PyQT 5.0 버전과, 아나콘다 Python 3.6 버전을 사용했습니다.
-# PyCharm을 사용하는 경우 File->Settings->Project Interpreter 를 아나콘다 Python 3.6으로 설정해줘야 코드가 올바르게 동작합니다.
 
 class MyApp(QWidget):
 
@@ -42,6 +42,7 @@ class MyApp(QWidget):
 
         global btn_makeTeam
         btn_makeTeam = QPushButton('팀 생성하기')  # 팀 생성하기 버튼
+        btn_makeTeam.clicked.connect(self.makeTeamOK)
         btn_makeTeam.clicked.connect(self.suffleTeam)
         btn_makeTeam.clicked.connect(self.insertTeam)
         btn_makeTeam.clicked.connect(self.suffleMap)
@@ -181,6 +182,9 @@ class MyApp(QWidget):
             listWidget.addItem(addItemText)
             nickNameBox.clear()
         txt_memberCount.setText(str(listWidget.count()) + ' 명')
+
+    def makeTeamOK(self):
+        reply = QMessageBox.warning(self, '팀 생성 완료', '팀 생성이 완료되었습니다.')
 
     def suffleTeam(self):
         items.clear()
