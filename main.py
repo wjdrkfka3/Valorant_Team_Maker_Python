@@ -1,6 +1,5 @@
 # PyQT 5.0 버전과, 아나콘다 Python 3.6 버전을 사용했습니다.
 # PyCharm을 사용하는 경우 File->Settings->Project Interpreter 를 아나콘다 Python 3.6으로 설정해줘야 코드가 올바르게 동작합니다.
-
 import sys
 import random
 from PyQt5.QtWidgets import *
@@ -42,10 +41,12 @@ class MyApp(QWidget):
 
         global btn_makeTeam
         btn_makeTeam = QPushButton('팀 생성하기')  # 팀 생성하기 버튼
+
+
         btn_makeTeam.clicked.connect(self.makeTeamOK)
-        btn_makeTeam.clicked.connect(self.suffleTeam)
-        btn_makeTeam.clicked.connect(self.insertTeam)
-        btn_makeTeam.clicked.connect(self.suffleMap)
+        # btn_makeTeam.clicked.connect(self.suffleTeam)
+        # btn_makeTeam.clicked.connect(self.insertTeam)
+        # btn_makeTeam.clicked.connect(self.suffleMap)
 
         btn_makeTeam.setFixedSize(120, 50)  # 사이즈 조절
         btn_makeTeam.setCheckable(True)  # 선택 가능하게 하기
@@ -184,7 +185,14 @@ class MyApp(QWidget):
         txt_memberCount.setText(str(listWidget.count()) + ' 명')
 
     def makeTeamOK(self):
-        reply = QMessageBox.warning(self, '팀 생성 완료', '팀 생성이 완료되었습니다.')
+        if (listWidget.count()==0):
+            reply = QMessageBox.warning(self, '경고', '추가된 인원이 없어 팀을 생성할 수 없습니다.')
+        else:
+            reply = QMessageBox.warning(self, '팀 생성 완료', '팀 생성이 완료되었습니다.')
+            self.suffleTeam()
+            self.insertTeam()
+            self.suffleMap()
+
 
     def suffleTeam(self):
         items.clear()
