@@ -1,5 +1,7 @@
-# PyQT 5.0 버전과, 아나콘다 Python 3.6 버전을 사용했습니다.
-# PyCharm을 사용하는 경우 File->Settings->Project Interpreter 를 아나콘다 Python 3.6으로 설정해줘야 코드가 올바르게 동작합니다.
+#  PyQT 5.0 버전과, 아나콘다 Python 3.6 버전을 사용했습니다.
+#  PyCharm을 사용하는 경우 File->Settings->Project Interpreter 를 아나콘다 Python 3.6으로 설정해줘야 코드가 올바르게 동작합니다.
+
+
 import sys
 import random
 from PyQt5.QtWidgets import *
@@ -17,16 +19,15 @@ class MyApp(QWidget):
 
         global listWidget
         listWidget = QListWidget()  # 리스트박스
-        listWidget.setFixedSize(150, 250)  # 사이즈 조절
+        listWidget.setFixedSize(150, 250)  # 사이즈조절
 
         global nickNameBox
         nickNameBox = QLineEdit()  # 닉네임박스
-        nickNameBox.setFixedSize(130, 20)  # 사이즈 조절
+        nickNameBox.setFixedSize(130, 20)  # 사이즈조절
         nickNameBox.returnPressed.connect(self.moveToListWidget)  # 엔터 칠때 함수 moveToListWidget에 연결
 
         global btn_add
         btn_add = QPushButton('추 가')  # 추가 버튼
-        # btn_add.setFixedSize(70, 30) # 사이즈 조절
         btn_add.clicked.connect(self.moveToListWidget)  # 버튼 누를 때 함수 btn_add_Function에 연결
 
         global btn_delete
@@ -37,30 +38,24 @@ class MyApp(QWidget):
         txt_setNum = QLabel('참여 인원 :')  # 참여 인원 선택 텍스트
 
         global txt_memberCount
-        txt_memberCount = QLabel(str(listWidget.count())+' 명')
+        txt_memberCount = QLabel(str(listWidget.count())+' 명')  # 참여 인원 텍스트
 
         global btn_makeTeam
         btn_makeTeam = QPushButton('팀 생성하기')  # 팀 생성하기 버튼
-
-
-        btn_makeTeam.clicked.connect(self.makeTeamOK)
-        # btn_makeTeam.clicked.connect(self.suffleTeam)
-        # btn_makeTeam.clicked.connect(self.insertTeam)
-        # btn_makeTeam.clicked.connect(self.suffleMap)
-
+        btn_makeTeam.clicked.connect(self.makeTeamOK)  # 버튼 기능 함수로 연결
         btn_makeTeam.setFixedSize(120, 50)  # 사이즈 조절
         btn_makeTeam.setCheckable(True)  # 선택 가능하게 하기
         btn_makeTeam.setChecked(True)  # 선택 되어있게 하기
 
         global btn_exit
         btn_exit = QPushButton('종료')  # 종료 버튼
-        btn_exit.clicked.connect(QCoreApplication.instance().quit)
+        btn_exit.clicked.connect(QCoreApplication.instance().quit)  # 종료 기능 동작
 
         global items
-        items = []
+        items = []  # 팀 리스트를 섞기 위한 임시 배열
 
         global m_items
-        m_items = [0, 1, 2, 3]
+        m_items = [0, 1, 2, 3]  # 맵 리스트륵 섞기 위한 임시 배열
 
         global lbl_maps
         lbl_maps = [QLabel('1경기 : 스플릿'), QLabel('2경기 : 바인드'), QLabel('3경기 : 헤이븐'), QLabel('4경기 : 어센트')]
@@ -76,16 +71,16 @@ class MyApp(QWidget):
         lbl_imgmaps = [QLabel(), QLabel(), QLabel(), QLabel()]
 
         global img_split
-        img_split = QPixmap('split.jpg')
+        img_split = QPixmap('split.jpg')   # 스플릿 이미지 경로 설정
 
         global img_haven
-        img_haven = QPixmap('haven.jpg')
+        img_haven = QPixmap('haven.jpg')   # 헤이븐 이미지 경로 설정
 
         global img_ascent
-        img_ascent = QPixmap('ascent.jpg')
+        img_ascent = QPixmap('ascent.jpg')   # 어센트 이미지 경로 설정
 
         global img_bind
-        img_bind = QPixmap('bind.jpg')
+        img_bind = QPixmap('bind.jpg')   # 바인드 이미지 경로 설정
 
         lbl_imgmaps[0].setPixmap(QPixmap(img_split.scaledToWidth(150)))
         lbl_imgmaps[1].setPixmap(QPixmap(img_haven.scaledToWidth(150)))
@@ -116,16 +111,12 @@ class MyApp(QWidget):
         layout_top_left = QVBoxLayout()
         layout_top_left.addWidget(self.executeBox())
         layout_top_left.addWidget(self.modifyBox())
-        # mid_right1.addWidget(self.mapBox())
 
         # layout_top
         layout_top = QHBoxLayout()
         layout_top.addWidget(listWidget)  # 리스트박스 추가
         layout_top.addLayout(layout_top_left)
         layout_top.addLayout(layout_top_right)
-        # hbox.addWidget(self.modifyBox())  # 수정 그룹박스 추가
-        # hbox.addWidget(self.executeBox())  # 팀 생성 그룹박스 추가
-        # hbox.addWidget(self.mapBox())  # 맵 선택 그룹박스 추가
 
         # layout_mid
         layout_mid = QHBoxLayout()
@@ -247,7 +238,6 @@ class MyApp(QWidget):
         grid.addWidget(nickNameBox, 1, 0)  # 닉네임박스 추가
         grid.addWidget(btn_add, 2, 0)  # 추가 버튼 추가
         grid.addWidget(btn_delete, 2, 1)  # 삭제 버튼 추가
-        # groupbox.setFlat(True)
         groupbox.setLayout(grid)
         groupbox.setFixedSize(150, 120)  # 사이즈 조절
         return groupbox
@@ -255,42 +245,13 @@ class MyApp(QWidget):
     def executeBox(self):
         groupbox = QGroupBox()
         grid = QGridLayout()
-
         version = QLabel('Ver 2.0')
-
         grid.addWidget(btn_makeTeam, 0, 0)
         grid.addWidget(version, 1, 0)
         grid.addWidget(btn_exit, 1, 3)
         groupbox.setLayout(grid)
         groupbox.setFixedSize(150, 120)  # 사이즈 조절
         return groupbox
-
-    # def mapBox(self):
-    #     groupbox = QGroupBox('맵 선택')
-    #     grid = QGridLayout()
-    #     text1 = QLabel('1경기 :')
-    #     text2 = QLabel('2경기 :')
-    #     text3 = QLabel('3경기 :')
-    #     text4 = QLabel('4경기 :')
-    #
-    #     map1 = QLabel('스플릿')
-    #     map2 = QLabel('헤이븐')
-    #     map3 = QLabel('바인드')
-    #     map4 = QLabel('어센트')
-    #
-    #     grid.addWidget(text1, 0, 0)
-    #     grid.addWidget(text2, 1, 0)
-    #     grid.addWidget(text3, 2, 0)
-    #     grid.addWidget(text4, 3, 0)
-    #
-    #     grid.addWidget(map1, 0, 1)
-    #     grid.addWidget(map2, 1, 1)
-    #     grid.addWidget(map3, 2, 1)
-    #     grid.addWidget(map4, 3, 1)
-    #
-    #     groupbox.setLayout(grid)
-    #     groupbox.setFixedSize(120, 120)  # 그룹박스 크기
-    #     return groupbox
 
     def mapBox1(self):
         groupbox = QGroupBox()
